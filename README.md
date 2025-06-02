@@ -11,5 +11,31 @@ Features:
 - Cron job to check for upcoming tasks in every 10 minutes
 
 Note: 
-1. Create user and task table
+1. Create user and task table using 
+
+    CREATE TABLE users (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT GETDATE()
+    );
+
+
+
+    CREATE TABLE tasks (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    due_date DATETIME NOT NULL,
+    priority VARCHAR(20) NOT NULL, 
+    status VARCHAR(20) NOT NULL DEFAULT 'pending', 
+    recurrence_type VARCHAR(20) NOT NULL DEFAULT 'none',
+    recurrence_interval INTEGER DEFAULT 1,
+    task_history TEXT,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE()
+    );
+
 2. Add environment variable
