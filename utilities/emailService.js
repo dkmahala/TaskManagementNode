@@ -1,9 +1,8 @@
-// utils/emailService.js
 const nodemailer = require('nodemailer');
 const config = require('./config');
 
 let transporter = nodemailer.createTransport({
-    service: "gmail", // or use SMTP config if needed
+    service: "gmail",
     auth: {
       user: config.EMAIL_USER,
       pass: config.EMAIL_PASS,

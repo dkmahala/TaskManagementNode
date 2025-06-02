@@ -10,3 +10,6 @@ Features:
 - Email notifications (1 hour before task is due) using Nodemailer and gmail based app password
 - Cron job to check for upcoming tasks in every 10 minutes
 
+Note: 
+1. Create user and task table
+2. Add environment variable

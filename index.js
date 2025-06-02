@@ -18,7 +18,7 @@ app.get('/', (req, res) => res.send('Task Scheduler API is running!'));
 app.use('/api/user', userRoute);
 app.use('/api/tasks', taskRoute);
 
-// Global error handler (simple)
+
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err.stack);
   res.status(500).json({ message: 'Something went wrong.' });
@@ -27,6 +27,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
-    // Start the cron job after server is up
     startTaskNotificationJob();
   });

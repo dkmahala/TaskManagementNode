@@ -117,7 +117,7 @@ module.exports.getTaskById = async (req, res) => {
 
     const task = result.recordset[0];
 
-    // Parse task_history if it exists
+
     if (task.task_history) {
       try {
         task.task_history = JSON.parse(task.task_history);
@@ -167,7 +167,7 @@ module.exports.markTaskCompleted = async (req, res) => {
       changed_at: new Date().toISOString(),
     });
 
-    // Update to completed and append history
+   
     await db.query(taskQueries.updateTaskStatusAndHistory, [
       { name: "status", type: db.sql.VarChar, value: "completed" },
       {
@@ -179,7 +179,6 @@ module.exports.markTaskCompleted = async (req, res) => {
       { name: "user_id", type: db.sql.Int, value: userId },
     ]);
 
-    // Handle recurrence
     if (task.recurrence_type !== "none") {
       const nextDue = addIntervalToDate(
         task.due_date,
@@ -187,7 +186,7 @@ module.exports.markTaskCompleted = async (req, res) => {
         task.recurrence_interval
       );
 
-      // Update due date and reset status
+    
       await db.query(taskQueries.updateTaskDueDate, [
         { name: "due_date", type: db.sql.DateTime, value: nextDue },
         { name: "id", type: db.sql.Int, value: taskId },

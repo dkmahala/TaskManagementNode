@@ -14,10 +14,7 @@ module.exports.register = async (req, res) => {
   }
 
   try {
-    // Check if user already exists
     const pool = await db.poolPromise;
-
-    // Check if user already exists
     const userCheckResult = await pool.request()
       .input('email', db.sql.VarChar, email)
       .query(authQueries.getUserByEmail);
@@ -29,7 +26,6 @@ module.exports.register = async (req, res) => {
     // Hash password
     const hashed = await bcrypt.hash(password, saltRounds);
 
-    // Insert user
     const insertResult = await pool.request()
       .input('name', db.sql.VarChar, name)
       .input('email', db.sql.VarChar, email)
@@ -72,7 +68,6 @@ module.exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
-    // Sign JWT
     const payload = { id: user.id, email: user.email };
     const token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
 

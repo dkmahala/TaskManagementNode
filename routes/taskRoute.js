@@ -11,11 +11,11 @@ const {
 
 router.use(protect);
 
-router.post('/', createTask);               // Create new task
-router.get('/', getAllTasks);               // List all tasks for user
+router.post('/', createTask);              
+router.get('/', getAllTasks);            
 router.get('/:taskId',getTaskById)
-router.put('/:taskId/complete', markTaskCompleted); // Mark as completed (and handle recurring)
-router.delete('/:taskId', deleteTask);      // Delete a task
+router.put('/:taskId/complete', markTaskCompleted);
+router.delete('/:taskId', deleteTask);
 
 
 module.exports = router;
